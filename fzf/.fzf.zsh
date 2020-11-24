@@ -10,9 +10,13 @@ export FZF_COMPLETION_TRIGGER='~~'
 # Options to fzf command
 export FZF_COMPLETION_OPTS='+c -x'
 
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+
 # Auto-completion
 # ---------------
 [[ $- == *i* ]] && source "/home/hide/.fzf/shell/completion.zsh" 2> /dev/null
+
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # Key bindings
 # ------------

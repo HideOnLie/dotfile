@@ -1,23 +1,24 @@
 "========================预执行========================
 
 "========================个人vim的配置========================
-set nocompatible            	"与vi不兼容模式运行
-let mapleader=" "		        "修改leader键,默认为“\”
-let maplocalleader=','          "设置local leader
 
-set wrap                	    "自动换行
-set wildmenu			        "命令查找菜单
-set clipboard=unnamed		    "默认粘贴到系统剪切板
-set showcmd           		    "显示输入的命令
-set cursorline			        "当前行高亮
-set number			            "行号
-set relativenumber				"相对行号
-set helplang=cn             	"中文帮助文档
-set encoding=utf-8          	"utf-8编码
-set fileencoding=utf-8          "设置当前文件编码
-set splitright                  "分屏时新窗口在右边
-"set mouse=a			            "鼠标
-"set t_Co=256            	    "开启256色支持
+set nocompatible       " 与vi不兼容模式运行
+let mapleader=" "      " 修改leader键,默认为“\”
+let maplocalleader=',' " 设置local leader
+
+set wrap               " 自动换行
+set wildmenu           " 命令查找菜单
+set clipboard=unnamed  " 默认粘贴到系统剪切板
+set showcmd            " 显示输入的命令
+set cursorline         " 当前行高亮
+set number             " 行号
+set relativenumber     " 相对行号
+set helplang=cn        " 中文帮助文档
+set encoding=utf-8     " utf-8编码
+set fileencoding=utf-8 " 设置当前文件编码
+set splitright         " 分屏时新窗口在右边
+"set mouse=a           " 鼠标
+"set t_Co=256          " 开启256色支持
 
 "左侧的标志栏
 if has("nvim")
@@ -81,7 +82,7 @@ nnoremap <leader><F12> :TranslateW<CR>
 xnoremap <leader><F12> :TranslateW<CR>                    
 
 " FZF
-nnoremap <leader>f :FZF<CR>
+"nnoremap <leader>f :FZF<CR>
 
 "========================vim-plug插件========================
 call plug#begin('~/.vim/plugged')
@@ -97,6 +98,10 @@ Plug 'luochen1990/rainbow'                          " 彩虹括号
 Plug 'farmergreg/vim-lastplace'                     " 打开上次文件的位置
 Plug 'pangloss/vim-javascript'                      " js着色
 Plug 'voldikss/vim-translator'                      " 翻译
+Plug 'gcmt/wildfire.vim'                            " 快速选择
+Plug 'machakann/vim-sandwich'                       " 成对符号
+Plug 'mg979/vim-visual-multi'                       " 多光标
+"Plug 'tpope/vim-surround'                          " 解决括号成对的问题
 "Plug 'ryanoasis/vim-devicons'                      " 图标
 
 Plug 'vim-airline/vim-airline'                      " vim状态栏
@@ -115,7 +120,8 @@ Plug 'junegunn/vim-easy-align'                      " 符号对齐
 
 Plug 'preservim/nerdtree'                           " 目录树
 Plug 'liuchengxu/vista.vim'                         " 函数列表
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
 "Plug 'vim-scripts/fcitx.vim'                       " fcitx输入法兼容
 
@@ -128,7 +134,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf
 
 "Plug 'vim-scripts/a.vim'                           " 头文件跳转
 
-Plug 'tpope/vim-surround'                           " 解决括号成对的问题
 
 "Plug 'mattn/emmet-vim'                             " html语言扩展
 Plug 'othree/html5.vim'
@@ -351,7 +356,7 @@ nmap ga <Plug>(EasyAlign)
 " ===
 let g:rainbow_active = 1
 let g:rainbow_conf = {
-\	'guifgs': ['Silver', 'IndianRed', 'darkcyan', 'darkorange3', 'RoyalBlue3', 'firebrick', 'mediumpurple'],
+\	'guifgs': ['Silver', 'IndianRed', 'darkcyan', 'gray' , 'RoyalBlue3', 'mediumpurple'],
 \	'ctermfgs': ['gray', 'brown', 'lightblue', 'lightyellow', 'darkgreen', 'lightmagenta'],
 \	'operators': '_,_',
 \	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
@@ -727,6 +732,39 @@ nmap mx <Plug>BookmarkClearAll
 " <c-x>, 相当于spilt
 " <c-v>, 相当于vspilt
 
+" ===
+" === vim-sandwich
+" ===
+" sa{motion/textobject}{addition}, 增加
+" sdb or sd{deletion}, 删除
+" srb{addition} or sr{deletion}{addition}, 替换
+
+" ===
+" ===vim-visual-multi
+" ===
+"Basic usage:
+"
+"select words with Ctrl-N (like Ctrl-d in Sublime Text/VS Code)
+"create cursors vertically with Ctrl-Down/Ctrl-Up
+"select one character at a time with Shift-Arrows
+"press n/N to get next/previous occurrence
+"press [/] to select next/previous cursor
+"press q to skip current and get next occurrence
+"press Q to remove current cursor/selection
+"start insert mode with i,a,I,A
+"
+"Two main modes:
+"
+"in cursor mode commands work as they would in normal mode
+"in extend mode commands work as they would in visual mode
+"press Tab to switch between «cursor» and «extend» mode
+
+
+" ===
+" === LeaderF
+" ===
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_PreviewInPopup = 1
 
 "========================其他配置========================
 "##### auto fcitx5  ###########
