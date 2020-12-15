@@ -84,6 +84,15 @@ xnoremap <leader><F12> :TranslateW<CR>
 " FZF
 "nnoremap <leader>f :FZF<CR>
 
+" lazygit
+nnoremap <leader>z :LazyGit<CR>
+
+" floaterm
+nnoremap <leader>t :FloatermNew<CR>
+
+" ranger
+nnoremap <leader>g :FloatermNew ranger<CR>
+
 "========================vim-plug插件========================
 call plug#begin('~/.vim/plugged')
 
@@ -96,7 +105,6 @@ Plug 'sheerun/vim-polyglot'                         " 语法高亮
 Plug 'airblade/vim-gitgutter'                       " vim中查看git状态
 Plug 'luochen1990/rainbow'                          " 彩虹括号
 Plug 'farmergreg/vim-lastplace'                     " 打开上次文件的位置
-Plug 'pangloss/vim-javascript'                      " js着色
 Plug 'voldikss/vim-translator'                      " 翻译
 Plug 'gcmt/wildfire.vim'                            " 快速选择
 Plug 'machakann/vim-sandwich'                       " 成对符号
@@ -136,7 +144,9 @@ Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
 
 "Plug 'mattn/emmet-vim'                             " html语言扩展
-Plug 'othree/html5.vim'
+Plug 'othree/html5.vim', {'for':['html']}
+
+Plug 'pangloss/vim-javascript', {'for':['html', 'javascripe']}                      " js着色
 
 Plug 'voldikss/vim-floaterm'                        " float termnial
 
@@ -144,8 +154,8 @@ Plug 'voldikss/vim-floaterm'                        " float termnial
 "Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 
 " ranger
-Plug 'francoiscabrol/ranger.vim'
-Plug 'rbgrouleff/bclose.vim'            
+"Plug 'francoiscabrol/ranger.vim'
+"Plug 'rbgrouleff/bclose.vim'            
 
 " tmux
 Plug 'christoomey/vim-tmux-navigator'
@@ -163,9 +173,10 @@ Plug 'Shougo/neosnippet-snippets'
 
 " plantuml
 "Plug 'scrooloose/vim-slumlord'
-Plug 'tyru/open-browser.vim'
-Plug 'aklt/plantuml-syntax'
-Plug 'weirongxu/plantuml-previewer.vim'
+Plug 'tyru/open-browser.vim', {'for':['plantuml']}
+Plug 'aklt/plantuml-syntax', {'for':['plantuml']}
+Plug 'weirongxu/plantuml-previewer.vim', {'for':['plantuml']}
+
 
 " 构建任务系统
 Plug 'skywind3000/asynctasks.vim'
@@ -471,7 +482,7 @@ else
 endif
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -602,9 +613,9 @@ let g:vim_markdown_conceal_code_blocks = 0
 " ===
 " === ranger
 " ===
-let g:ranger_map_keys = 0
-let g:NERDTreeHijackNetrw = 0
-let g:ranger_replace_netrw = 1 "vim打开目录文件时，运行ranger
+"let g:ranger_map_keys = 0
+"let g:NERDTreeHijackNetrw = 0
+"let g:ranger_replace_netrw = 1 "vim打开目录文件时，运行ranger
 
 " ===
 " === neosnippet.vim
@@ -638,9 +649,6 @@ let g:matchup_matchparen_offscreen = {'scrolloff': '1'}
 " ===
 " === vim-floaterm
 " ===
-nnoremap <leader>t :FloatermNew<CR>
-nnoremap <leader>g :FloatermNew ranger<CR>
-nnoremap <leader>z :FloatermNew lazygit<CR>
 
 " ===
 " === asynctasks.vim
