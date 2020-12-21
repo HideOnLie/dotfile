@@ -1,9 +1,8 @@
-"========================预执行========================
 
-"========================个人vim的配置========================
+"========================Configuration========================{{{
 
 set nocompatible       " 与vi不兼容模式运行
-let mapleader=" "      " 修改leader键,默认为“\”
+let mapleader="\<Space>"      " 修改leader键,默认为“\”
 let maplocalleader=',' " 设置local leader
 
 set wrap               " 自动换行
@@ -17,6 +16,8 @@ set helplang=cn        " 中文帮助文档
 set encoding=utf-8     " utf-8编码
 set fileencoding=utf-8 " 设置当前文件编码
 set splitright         " 分屏时新窗口在右边
+set timeoutlen=500     " 在按下leader后，当timeoutlen内没有进一步按键时，which-key将会弹出
+set foldlevelstart=0   " 打开文件时关闭所有折叠块
 "set mouse=a           " 鼠标
 "set t_Co=256          " 开启256色支持
 
@@ -34,6 +35,8 @@ set hlsearch		"高亮搜索
 set incsearch		"实时匹配
 set ignorecase      "忽略大小写
 set smartcase
+"取消搜索高亮
+exec "nohlsearch"
 
 " TAB 键
 set expandtab                   "将Tab键转换为空格
@@ -41,10 +44,6 @@ set tabstop=4                   "设置Tab键的宽度
 set shiftwidth=4                "换行时自动缩进宽度
 set smarttab                    "指定按一次backspace就删除shiftwidth宽度(默认8个空格)
 
-" 解决html着色误判断大于号(>)或小于号(<)导致的着色出错
-autocmd FileType html   :syntax sync minlines=10000
-"syntax sync minlines=10000
-"syntax sync fromstart
 
 "开启真彩色
 if has('nvim')
@@ -60,10 +59,16 @@ endif
 
 " 显示不可见字符格式，set list打开，set nolist关闭
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+"}}}
 
-"========================自定义按键映射========================
+"========================Mappings========================{{{
 " 重新加载配置文件
 nnoremap <leader>rc :source $MYVIMRC<CR>
+
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :WhichKeyVisual '<Space>'<CR>
+"nnoremap <silent> <localleader> :WhichKey  ','<CR>
+"vnoremap <silent> <localleader> :WhichKeyVisual ','<CR>
 
 " 取消搜索高亮
 nnoremap <LEADER><CR> :nohlsearch<CR>
@@ -92,11 +97,15 @@ nnoremap <leader>t :FloatermNew<CR>
 
 " ranger
 nnoremap <leader>g :FloatermNew ranger<CR>
+"}}}
 
-"========================vim-plug插件========================
+"========================Vim-plug========================{{{
 call plug#begin('~/.vim/plugged')
 
-Plug 'mhinz/vim-startify'                           " 小奶牛
+"Plug 'mhinz/vim-startify'                           " 小奶牛
+Plug 'glepnir/dashboard-nvim'
+"Plug 'liuchengxu/vim-clap'
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'kristijanhusak/vim-hybrid-material'           " hybrid配色方案
 Plug 'psliwka/vim-smoothie'                         " 滚动优化
 Plug 'tpope/vim-repeat'                             " 重复操作.优化
@@ -109,6 +118,7 @@ Plug 'voldikss/vim-translator'                      " 翻译
 Plug 'gcmt/wildfire.vim'                            " 快速选择
 Plug 'machakann/vim-sandwich'                       " 成对符号
 Plug 'mg979/vim-visual-multi'                       " 多光标
+"Plug 'Yggdroot/indentLine'                         " 缩进线
 "Plug 'tpope/vim-surround'                          " 解决括号成对的问题
 "Plug 'ryanoasis/vim-devicons'                      " 图标
 
@@ -126,10 +136,8 @@ Plug 'MattesGroeger/vim-bookmarks'                  " 书签
 Plug 'dhruvasagar/vim-table-mode'                   " 表格模式
 Plug 'junegunn/vim-easy-align'                      " 符号对齐
 
-Plug 'preservim/nerdtree'                           " 目录树
+Plug 'preservim/nerdtree', {'on':['NERDTreeToggle']}                           " 目录树
 Plug 'liuchengxu/vista.vim'                         " 函数列表
-"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf
-Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
 "Plug 'vim-scripts/fcitx.vim'                       " fcitx输入法兼容
 
@@ -142,7 +150,6 @@ Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
 "Plug 'vim-scripts/a.vim'                           " 头文件跳转
 
-
 "Plug 'mattn/emmet-vim'                             " html语言扩展
 Plug 'othree/html5.vim', {'for':['html']}
 
@@ -150,8 +157,10 @@ Plug 'pangloss/vim-javascript', {'for':['html', 'javascripe']}                  
 
 Plug 'voldikss/vim-floaterm'                        " float termnial
 
-" Clap, 模糊查询
+" 模糊搜索
 "Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
 " ranger
 "Plug 'francoiscabrol/ranger.vim'
@@ -168,8 +177,9 @@ Plug 'mzlogin/vim-markdown-toc',     {'for':['markdown']}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'for':['markdown']  }
 
 " snippets
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
+Plug 'honza/vim-snippets'
+"Plug 'Shougo/neosnippet.vim'
+"Plug 'Shougo/neosnippet-snippets'
 
 " plantuml
 "Plug 'scrooloose/vim-slumlord'
@@ -192,13 +202,24 @@ if has('nvim')
 endif
 
 call plug#end()
+"}}}
 
-"========================相关插件配置========================
+"========================Plug's config========================{{{
 
 " ===
 " === vim-startify, 小奶牛
 " ===
-let g:startify_bookmarks = [ {'v': '~/.vimrc'}, {'z': '~/.zshrc'} ]
+"let g:startify_bookmarks = [ {'v': '~/.vimrc'}, {'z': '~/.zshrc'} ]
+let g:dashboard_default_executive ='leaderf'
+"let g:dashboard_default_header='default'
+"let g:dashboard_default_header='garfield'
+
+" ===
+" === vim-which-key
+" ===
+let g:which_key_map = {}
+
+autocmd! User vim-which-key call which_key#register('<Space>', "g:which_key_map")
 
 " ===
 " === vim-hybrid-material, 配色方案
@@ -275,6 +296,16 @@ let g:vim_current_word#highlight_current_word = 0
 " cs,以”性感”的方式注释
 " cm,块注释 cA,在当前行尾添加注释符，并进入Insert模式
 " c$,从光标开始到行尾注释
+let g:which_key_map.c = {
+      \'name' : '+comment_option',
+      \'c' : 'Comment current line or text selected in visual mode',
+      \'u' : 'Uncomment',
+      \'s' : 'Sexily Comment',
+      \'a' : 'switches to the alternative comment style',
+      \'m' : 'Comment block',
+      \'A' : 'Insert Mode, at the line tail',
+      \'$' : 'Comment from current to line tail',
+      \}
 
 
 " ===
@@ -311,6 +342,12 @@ let g:vim_current_word#highlight_current_word = 0
 " 折叠/打开折叠：GitGutterFold
 set updatetime=100                  "显示的延迟，默认为4000即4s，这里设置为100ms，这个值同时控制写入swap文件的时间
 let g:gitgutter_max_signs = -1      "default value,超过多少改动将不显示改动符号，-1为不设置上限
+let g:which_key_map.h = {
+      \'name' : '+Action',
+      \'p' : 'Preview the hunk under the cursor',
+      \'s' : 'Stage the hunk under the cursor',
+      \'u' : 'Undo the hunk under the cursor',
+      \}
 
 " ===
 " ===vim-easy-align
@@ -466,11 +503,7 @@ function! s:check_back_space() abort
 endfunction
 
 " Use <c-space> to trigger completion.手动触发补全
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+inoremap <silent><expr> <c-h> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
@@ -482,7 +515,7 @@ else
 endif
 
 " Use K to show documentation in preview window.
-" nnoremap <silent> K :call <SID>show_documentation()<CR>
+"nnoremap <silent> <C-k> :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -569,6 +602,27 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.恢复最后一次打开的coclist
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 endif
+
+" ===
+" === coc-snippets
+" ===
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" 跳到下个改动区域
+let g:coc_snippet_next = '<c-j>'
+
+" 跳到上个改动区域
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
+
 
 " ===
 " === vim-surround
@@ -771,11 +825,14 @@ nmap mx <Plug>BookmarkClearAll
 " ===
 " === LeaderF
 " ===
+let g:Lf_UseCache = 0
 let g:Lf_WindowPosition = 'popup'
 let g:Lf_PreviewInPopup = 1
 
-"========================其他配置========================
-"##### auto fcitx5  ###########
+"}}}
+
+"========================Others========================{{{
+"##### auto fcitx5  #####
 "fcitx5-remote -o, 激活输入法
 "fcitx5-remote -c, 取消激活输入法,即回到英文输入
 "默认进入插入模式时为英文
@@ -790,11 +847,27 @@ endfunction
 set ttimeoutlen=100
 "退出插入模式
 autocmd InsertLeave * call Fcitx2en()
-"##### auto fcitx end ######
+"##### auto fcitx end #####
+"}}}
 
-"========================开启指定服务========================
+"========================Services========================{{{
 syntax enable                   "开启语法检查
 filetype plugin on              "文件类型检查
 highlight clear SignColumn      "让signcolumn与行号一个颜色
-"取消搜索高亮
-exec "nohlsearch"
+"}}}
+
+"========================Autocmd========================{{{
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+augroup END
+
+augroup filetype_html
+    autocmd!
+    autocmd FileType html   :syntax sync fromstart
+" 解决html着色误判断大于号(>)或小于号(<)导致的着色出错
+" 貌似这个设置一定要在syntax enable之后，否则不起效
+"syntax sync minlines=10000
+"syntax sync fromstart
+augroup END
+"}}}
