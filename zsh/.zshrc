@@ -4,6 +4,7 @@
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+POWERLEVEL9K_INSTANT_PROMPT=off
 
 
 ### Added by Zinit's installer
@@ -33,6 +34,9 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 # pure 主题
 #zinit ice pick"async.zsh" src"pure.zsh"
 #zinit light sindresorhus/pure
+
+# z 跳转
+zinit ice depth=1; zinit light rupa/z
 
 # 语法高亮
 zinit light zsh-users/zsh-syntax-highlighting
@@ -114,6 +118,11 @@ export MANPATH=$LINUXBREWHOME/man:$MANPATH
 export PKG_CONFIG_PATH=$LINUXBREWHOME/lib64/pkgconfig:$LINUXBREWHOME/lib/pkgconfig:$PKG_CONFIG_PATH
 export LD_LIBRARY_PATH=$LINUXBREWHOME/lib64:$LINUXBREWHOME/lib:$LD_LIBRARY_PATH
 
+
+### Bashhub.com Installation
+if [ -f ~/.bashhub/bashhub.zsh ]; then
+    source ~/.bashhub/bashhub.zsh
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
