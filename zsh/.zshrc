@@ -55,10 +55,10 @@ zinit snippet OMZ::lib/key-bindings.zsh
 zinit snippet OMZ::lib/theme-and-appearance.zsh
 zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 zinit snippet OMZ::plugins/sudo/sudo.plugin.zsh
-zinit snippet OMZ::plugins/history-substring-search/history-substring-search.plugin.zsh
+zinit snippet OMZ::plugins/history-substring-search/history-substring-search.zsh
 zinit snippet OMZ::plugins/vi-mode/vi-mode.plugin.zsh
 
-zinit ice svn
+#zinit ice svn
 zinit snippet OMZ::plugins/extract/extract.plugin.zsh
 
 # cd 的补全目录
