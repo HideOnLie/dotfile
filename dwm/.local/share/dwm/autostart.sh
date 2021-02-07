@@ -14,5 +14,5 @@ dunst &
 # screenkey
 #screenkey > /dev/null 2>&1 &
 
-/sbin/bash ~/Script/server_notify.sh &
-/sbin/bash ~/Script/remote_fcitx.sh &
+/sbin/bash ~/Script/ServerNotify/server_notify.sh &
+/sbin/bash ~/Script/FcitxRemote/remote_fcitx.sh &
