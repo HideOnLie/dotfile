@@ -162,9 +162,12 @@ if dein#load_state(s:dein_path)
           \'lzay': 1,
           \'on_map':{'n':['%']},
           \})                   
-    call dein#add('sheerun/vim-polyglot')                         " 语法高亮
+    "call dein#add('sheerun/vim-polyglot')                         " 语法高亮
+    call dein#add('nvim-treesitter/nvim-treesitter')                         " 语法高亮
+    call dein#add('p00f/nvim-ts-rainbow')                         " 语法高亮
+
     call dein#add('airblade/vim-gitgutter')                       " vim中查看git状态
-    call dein#add('luochen1990/rainbow')                          " 彩虹括号
+    "call dein#add('luochen1990/rainbow')                          " 彩虹括号
     call dein#add('farmergreg/vim-lastplace')                     " 打开上次文件的位置
 
     " 翻译
@@ -179,6 +182,8 @@ if dein#load_state(s:dein_path)
 
     call dein#add('vim-airline/vim-airline')                      " vim状态栏
     call dein#add('vim-airline/vim-airline-themes')               " vim状态栏主题
+
+    "call dein#add('wfxr/minimap.vim')               " 代码mini预览
 
     "call dein#add('itchyny/vim-cursorword')                       " 下划线
     
@@ -223,7 +228,7 @@ if dein#load_state(s:dein_path)
     " js着色
     call dein#add('pangloss/vim-javascript',{
           \'lazy':1,
-          \'on_ft' : ['html','javascripe'],
+          \'on_ft' : ['html','javascript'],
           \})                   
 
     " float termnial
@@ -278,10 +283,10 @@ if dein#load_state(s:dein_path)
           \'lazy':1,
           \'on_ft':['plantuml'],
           \})
-    call dein#add('weirongxu/plantuml-previewer.vim',{
-          \'lazy':1,
-          \'on_ft':['plantuml'],
-          \})
+    "call dein#add('weirongxu/plantuml-previewer.vim',{
+          "\'lazy':1,
+          "\'on_ft':['plantuml'],
+          "\})
 
 
 " 构建任务系统
@@ -297,10 +302,10 @@ if has('nvim')
     call dein#add('RRethy/vim-hexokinase') 
 
     " coc补全
-    call dein#add('neoclide/coc.nvim',{
-          \'lazy':1,
-          \'on_event':['InsertEnter'],
-          \})
+    "call dein#add('neoclide/coc.nvim',{
+          "\'lazy':1,
+          "\'on_event':['InsertEnter'],
+          "\})
 
     "lazygit
     call dein#add('kdheepak/lazygit.nvim',{
@@ -939,6 +944,39 @@ let g:Lf_WindowPosition = 'popup'
 let g:Lf_PreviewInPopup = 1
 
 "}}}
+
+"disable = { "c", "rust" },  -- list of language that will be disabled
+"require'nvim-treesitter.configs'.setup {
+  "ensure_installed = "c",
+  "highlight = {
+    "enable = true,
+  "},
+"}
+
+lua <<EOF
+  require'nvim-treesitter.configs'.setup {
+    ensure_installed = "c",
+    highlight = { enable = true },
+    rainbow = { enable = true },
+  }
+EOF
+
+if has("cscope")
+   set csprg=/usr/bin/cscope
+   set csto=0
+   set cst
+   set nocsverb
+   " add any database in current directory
+   if filereadable("cscope.out")
+      cs add cscope.out
+   " else add database pointed to by environment
+   elseif $CSCOPE_DB != ""
+      cs add $CSCOPE_DB
+   endif
+   set csverb
+endif
+
+set cscopequickfix=s-,c-,d-,i-,t-,e-
 
 "========================Others========================{{{
 "##### auto fcitx5  #####
