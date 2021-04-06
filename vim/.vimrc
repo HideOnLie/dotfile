@@ -125,114 +125,6 @@ nnoremap <leader>t :FloatermNew<CR>
 nnoremap <leader>g :FloatermNew ranger<CR>
 "}}}
 
-function! _blockcomment()
-
-"========================Vim-plug========================{{{
-call plug#begin('~/.vim/plugged')
-
-"Plug 'mhinz/vim-startify'                           " 小奶牛
-Plug 'glepnir/dashboard-nvim'
-"Plug 'liuchengxu/vim-clap'
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-Plug 'kristijanhusak/vim-hybrid-material'           " hybrid配色方案
-Plug 'psliwka/vim-smoothie'                         " 滚动优化
-Plug 'tpope/vim-repeat'                             " 重复操作.优化
-Plug 'andymass/vim-matchup'                         " 加强%
-Plug 'sheerun/vim-polyglot'                         " 语法高亮
-Plug 'airblade/vim-gitgutter'                       " vim中查看git状态
-Plug 'luochen1990/rainbow'                          " 彩虹括号
-Plug 'farmergreg/vim-lastplace'                     " 打开上次文件的位置
-Plug 'voldikss/vim-translator'                      " 翻译
-Plug 'gcmt/wildfire.vim'                            " 快速选择
-Plug 'machakann/vim-sandwich'                       " 成对符号
-Plug 'mg979/vim-visual-multi'                       " 多光标
-"Plug 'Yggdroot/indentLine'                         " 缩进线
-"Plug 'tpope/vim-surround'                          " 解决括号成对的问题
-"Plug 'ryanoasis/vim-devicons'                      " 图标
-
-Plug 'vim-airline/vim-airline'                      " vim状态栏
-Plug 'vim-airline/vim-airline-themes'               " vim状态栏主题
-
-Plug 'itchyny/vim-cursorword'                       " 下划线
-"Plug 'RRethy/vim-illuminate'                       " 高亮当前单词
-
-"Plug 'lfv89/vim-interestingwords'                  " 单词高亮及跳转
-Plug 'vim-scripts/Mark--Karkat'                     " 单词高亮及跳转
-Plug 'preservim/nerdcommenter'                      " 注释
-Plug 'MattesGroeger/vim-bookmarks'                  " 书签
-
-Plug 'dhruvasagar/vim-table-mode'                   " 表格模式
-Plug 'junegunn/vim-easy-align'                      " 符号对齐
-
-Plug 'preservim/nerdtree', {'on':['NERDTreeToggle']}                           " 目录树
-Plug 'liuchengxu/vista.vim'                         " 函数列表
-
-"Plug 'vim-scripts/fcitx.vim'                       " fcitx输入法兼容
-
-"Plug 'jiangmiao/auto-pairs'                        " 括号匹配
-"Plug 'Raimondi/delimitMate'                        " 括号匹配
-
-"Plug 'ludovicchabant/vim-gutentags'                " 自动打tag
-
-"Plug 'vim-scripts/DoxygenToolkit.vim'              " 快速添加函数注释
-
-"Plug 'vim-scripts/a.vim'                           " 头文件跳转
-
-"Plug 'mattn/emmet-vim'                             " html语言扩展
-Plug 'othree/html5.vim', {'for':['html']}
-
-Plug 'pangloss/vim-javascript', {'for':['html', 'javascripe']}                      " js着色
-
-Plug 'voldikss/vim-floaterm'                        " float termnial
-
-" 模糊搜索
-"Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
-"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf
-Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
-
-" ranger
-"Plug 'francoiscabrol/ranger.vim'
-"Plug 'rbgrouleff/bclose.vim'            
-
-" tmux
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'edkolev/tmuxline.vim'
-
-" markdown
-Plug 'godlygeek/tabular'                                                                    " 格式化代码
-Plug 'plasticboy/vim-markdown',      {'for':['markdown']}                                   " 语法高亮
-Plug 'mzlogin/vim-markdown-toc',     {'for':['markdown']}
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'for':['markdown']  }
-
-" snippets
-Plug 'honza/vim-snippets'
-"Plug 'Shougo/neosnippet.vim'
-"Plug 'Shougo/neosnippet-snippets'
-
-" plantuml
-"Plug 'scrooloose/vim-slumlord'
-Plug 'tyru/open-browser.vim', {'for':['plantuml']}
-Plug 'aklt/plantuml-syntax', {'for':['plantuml']}
-Plug 'weirongxu/plantuml-previewer.vim', {'for':['plantuml']}
-
-
-" 构建任务系统
-Plug 'skywind3000/asynctasks.vim'
-Plug 'skywind3000/asyncrun.vim'
-
-" clipper,粘贴板(remote)
-"Plug 'wincent/vim-clipper'
-
-if has('nvim')
-        Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' } " 颜色值保存时显示颜色
-        Plug 'neoclide/coc.nvim', {'branch': 'release'}           " coc补全
-        Plug 'kdheepak/lazygit.nvim', { 'branch': 'nvim-v0.4.3' } " lazygit
-endif
-
-call plug#end()
-"}}}
-endfunction
-
 
 set runtimepath+=/home/hide/.vim/dein/repos/github.com/Shougo/dein.vim
 
@@ -270,9 +162,12 @@ if dein#load_state(s:dein_path)
           \'lzay': 1,
           \'on_map':{'n':['%']},
           \})                   
-    call dein#add('sheerun/vim-polyglot')                         " 语法高亮
+    "call dein#add('sheerun/vim-polyglot')                         " 语法高亮
+    call dein#add('nvim-treesitter/nvim-treesitter')                         " 语法高亮
+    call dein#add('p00f/nvim-ts-rainbow')                         " 语法高亮
+
     call dein#add('airblade/vim-gitgutter')                       " vim中查看git状态
-    call dein#add('luochen1990/rainbow')                          " 彩虹括号
+    "call dein#add('luochen1990/rainbow')                          " 彩虹括号
     call dein#add('farmergreg/vim-lastplace')                     " 打开上次文件的位置
 
     " 翻译
@@ -287,6 +182,8 @@ if dein#load_state(s:dein_path)
 
     call dein#add('vim-airline/vim-airline')                      " vim状态栏
     call dein#add('vim-airline/vim-airline-themes')               " vim状态栏主题
+
+    "call dein#add('wfxr/minimap.vim')               " 代码mini预览
 
     "call dein#add('itchyny/vim-cursorword')                       " 下划线
     
@@ -331,7 +228,7 @@ if dein#load_state(s:dein_path)
     " js着色
     call dein#add('pangloss/vim-javascript',{
           \'lazy':1,
-          \'on_ft' : ['html','javascripe'],
+          \'on_ft' : ['html','javascript'],
           \})                   
 
     " float termnial
@@ -386,10 +283,10 @@ if dein#load_state(s:dein_path)
           \'lazy':1,
           \'on_ft':['plantuml'],
           \})
-    call dein#add('weirongxu/plantuml-previewer.vim',{
-          \'lazy':1,
-          \'on_ft':['plantuml'],
-          \})
+    "call dein#add('weirongxu/plantuml-previewer.vim',{
+          "\'lazy':1,
+          "\'on_ft':['plantuml'],
+          "\})
 
 
 " 构建任务系统
@@ -405,10 +302,10 @@ if has('nvim')
     call dein#add('RRethy/vim-hexokinase') 
 
     " coc补全
-    call dein#add('neoclide/coc.nvim',{
-          \'lazy':1,
-          \'on_event':['InsertEnter'],
-          \})
+    "call dein#add('neoclide/coc.nvim',{
+          "\'lazy':1,
+          "\'on_event':['InsertEnter'],
+          "\})
 
     "lazygit
     call dein#add('kdheepak/lazygit.nvim',{
@@ -1047,6 +944,39 @@ let g:Lf_WindowPosition = 'popup'
 let g:Lf_PreviewInPopup = 1
 
 "}}}
+
+"disable = { "c", "rust" },  -- list of language that will be disabled
+"require'nvim-treesitter.configs'.setup {
+  "ensure_installed = "c",
+  "highlight = {
+    "enable = true,
+  "},
+"}
+
+lua <<EOF
+  require'nvim-treesitter.configs'.setup {
+    ensure_installed = "c",
+    highlight = { enable = true },
+    rainbow = { enable = true },
+  }
+EOF
+
+if has("cscope")
+   set csprg=/usr/bin/cscope
+   set csto=0
+   set cst
+   set nocsverb
+   " add any database in current directory
+   if filereadable("cscope.out")
+      cs add cscope.out
+   " else add database pointed to by environment
+   elseif $CSCOPE_DB != ""
+      cs add $CSCOPE_DB
+   endif
+   set csverb
+endif
+
+set cscopequickfix=s-,c-,d-,i-,t-,e-
 
 "========================Others========================{{{
 "##### auto fcitx5  #####
