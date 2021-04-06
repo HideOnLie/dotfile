@@ -71,9 +71,9 @@ zstyle ':completion:*' menu select
 
 # === alias
 alias ls=exa
-alias la='exa -la'
-alias ll='exa -l'
-alias l='exa -la'
+alias la='exa -lgha'
+alias ll='exa -lgh'
+alias l='exa -lgha'
 alias rg='ranger'
 alias lg='lazygit'
 alias vi='nvim'
