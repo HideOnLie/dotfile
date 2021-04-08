@@ -129,160 +129,215 @@ nnoremap <leader>g :FloatermNew ranger<CR>
 set runtimepath+=/home/hide/.vim/dein/repos/github.com/Shougo/dein.vim
 
 let s:dein_path = '~/.vim/dein'
+let g:dein#types#git#default_hub_site='hub.fastgit.org'
+let g:dein#types#git#clone_depth=1
+let g:dein#install_progress_type="title"
 
 if dein#load_state(s:dein_path)
     call dein#begin(s:dein_path)
 
   " Let dein manage dein
-    call dein#add('/home/hide/.vim/dein/repos/github.com/Shougo/dein.vim')
+    call dein#add('/home/hide/.vim/dein/repos/github.com/Shougo/dein.vim',{
+                \'type':'git'
+                \})
 
   " Install third-party plugins:
-    call dein#add('wsdjeg/dein-ui.vim')    "dein ui  ===> :DeinUpdate
-    call dein#add('glepnir/dashboard-nvim')    
-
+  
+    call dein#add('wsdjeg/dein-ui.vim',{
+                \'type':'git',
+                \})    
+    call dein#add('glepnir/dashboard-nvim',{
+                \'type':'git',
+                \})    
     " hybrid配色方案
-    call dein#add('kristijanhusak/vim-hybrid-material')     
-
+    call dein#add('kristijanhusak/vim-hybrid-material',{
+                \'type':'git',
+                \})     
     " which-key
     call dein#add('liuchengxu/vim-which-key',{
-          \'lzay': 1,
-          \'on_cmd':['WhichKey', 'WhichKey!'],
-          \})
+                \'type':'git',
+                \'lzay': 1,
+                \'on_cmd':['WhichKey', 'WhichKey!'],
+                \})
     " 滚动优化
     call dein#add('psliwka/vim-smoothie',{
-          \'lzay': 1,
-          \'on_map':{'n':['<C-u>', '<C-d>', '<C-f>', '<C-b>']},
-          \})
+                \'type':'git',
+                \'lzay': 1,
+                \'on_map':{'n':['<C-u>', '<C-d>', '<C-f>', '<C-b>']},
+                \})
     " 重复操作.优化
     call dein#add('tpope/vim-repeat',{
-          \'on_map':{'n':['.']},
-          \})                       
+                \'type':'git',
+                \'lzay': 1,
+                \'on_map':{'n':['.']}, 
+                \})                       
     " 加强%
-    call dein#add('andymass/vim-matchup',{
-          \'lzay': 1,
-          \'on_map':{'n':['%']},
-          \})                   
-    "call dein#add('sheerun/vim-polyglot')                         " 语法高亮
-    call dein#add('nvim-treesitter/nvim-treesitter')                         " 语法高亮
-    call dein#add('p00f/nvim-ts-rainbow')                         " 语法高亮
-
-    call dein#add('airblade/vim-gitgutter')                       " vim中查看git状态
-    "call dein#add('luochen1990/rainbow')                          " 彩虹括号
-    call dein#add('farmergreg/vim-lastplace')                     " 打开上次文件的位置
-
+    call dein#add('andymass/vim-matchup',{ 
+                \'type':'git',
+                \'lzay': 1,
+                \'on_map':{'n':['%']}, 
+                \})                   
+    " 语法高亮
+    "call dein#add('sheerun/vim-polyglot')
+    call dein#add('nvim-treesitter/nvim-treesitter',{
+                \'type':'git',
+                \})                
+    " 彩虹括号
+    "call dein#add('luochen1990/rainbow')
+    call dein#add('p00f/nvim-ts-rainbow',{
+                \'type':'git',
+                \})                         
+    " vim中查看git状态
+    call dein#add('airblade/vim-gitgutter',{
+                \'type':'git',
+                \})                       
+    " 打开上次文件的位置
+    call dein#add('farmergreg/vim-lastplace',{
+                \'type':'git',
+                \})                     
     " 翻译
     call dein#add('voldikss/vim-translator',{
-          \'lazy':1,
-          \'on_cmd':['TranslateW'],
-          \})
-
-    call dein#add('gcmt/wildfire.vim')                            " 快速选择
-    call dein#add('machakann/vim-sandwich')                       " 成对符号
-    call dein#add('mg979/vim-visual-multi')                       " 多光标
-
-    call dein#add('vim-airline/vim-airline')                      " vim状态栏
-    call dein#add('vim-airline/vim-airline-themes')               " vim状态栏主题
-
+                \'type':'git',
+                \'lazy':1, 
+                \'on_cmd':['TranslateW'],
+                \})
+    " 快速选择
+    call dein#add('gcmt/wildfire.vim',{
+                \'type':'git',
+                \'lazy':1, 
+                \})                            
+    " 成对符号
+    call dein#add('machakann/vim-sandwich',{
+                \'type':'git',
+                \'lazy':1, 
+                \})                       
+    " 多光标
+    call dein#add('mg979/vim-visual-multi',{
+                \'type':'git',
+                \})                       
+    " vim状态栏
+    call dein#add('vim-airline/vim-airline',{
+                \'type':'git',
+                \'lzay': 1,
+                \})                      
+    " vim状态栏主题
+    call dein#add('vim-airline/vim-airline-themes',{
+                \'type':'git',
+                \'lzay': 1,
+                \'depends': ['vim-airline'],
+                \})               
     "call dein#add('wfxr/minimap.vim')               " 代码mini预览
-
     "call dein#add('itchyny/vim-cursorword')                       " 下划线
-    
     " 单词高亮及跳转
     call dein#add('vim-scripts/Mark--Karkat',{
-          \'lzay': 1,
-          \'on_map':{'n':['<leader>m'],'x':['<leader>m']},
-          \}) 
-
+                \'type':'git',
+                \'lzay': 1,
+                \'on_map':{'n':['<leader>m'],'x':['<leader>m']},
+                \}) 
      "注释
     call dein#add('preservim/nerdcommenter',{
-          \'lzay': 1,
-          \'on_map':{'n':['<leader>cc','<leader>cs','<leader>cu','<leader>ca'],'x':['<leader>cs']},
-          \})
+                \'type':'git',
+                \'lzay': 1,
+                \'on_map':{'n':['<leader>cc','<leader>cs','<leader>cu','<leader>ca'],'x':['<leader>cs']},
+                \})
     " 书签
     call dein#add('MattesGroeger/vim-bookmarks',{
-          \'lzay': 1,
-          \'on_map':{'n':['mm','ma']},
-          \})
-
+                \'type':'git',
+                \'lzay': 1,
+                \'on_map':{'n':['mm','ma']},
+                \})
     " 表格模式
     call dein#add('dhruvasagar/vim-table-mode',{
-          \'lzay': 1,
-          \'on_map':{'n':['<leader>tm']},
-          \})
-
-    call dein#add('junegunn/vim-easy-align')                      " 符号对齐
-
+                \'type':'git',
+                \'lzay': 1,
+                \'on_map':{'n':['<leader>tm']},
+                \})
+    " 符号对齐
+    call dein#add('junegunn/vim-easy-align',{
+                \'type':'git',
+                \'lzay': 1,
+                \})                      
     "call dein#add('preservim/nerdtree')   ", {'on':['NERDTreeToggle']}                            目录树
-
     " 函数列表
     call dein#add('liuchengxu/vista.vim',{
-          \'lzay': 1,
-          \'on_cmd':['Vista!!'],
-          \})
-
+                \'type':'git',
+                \'lzay': 1,
+                \'on_cmd':['Vista!!'],
+                \})
     " html5
     call dein#add('othree/html5.vim',{
-          \'on_ft' : ['html'],
-          \}) 
-
+                \'type':'git',
+                \'lzay': 1,
+                \'on_ft' : ['html'],
+                \}) 
     " js着色
-    call dein#add('pangloss/vim-javascript',{
-          \'lazy':1,
-          \'on_ft' : ['html','javascript'],
-          \})                   
+    "call dein#add('pangloss/vim-javascript',{
+    "      \'lazy':1,
+    "      \'on_ft' : ['html','javascript'],
+    "      \})                   
 
     " float termnial
     call dein#add('voldikss/vim-floaterm',{
-          \'lazy':1,
-          \'on_cmd':['FloatermNew'],
-          \})
-
+                \'type':'git',
+                \'lazy':1,
+                \'on_cmd':['FloatermNew'],
+                \})
     " 模糊搜索
     "Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
     call dein#add('Yggdroot/LeaderF',{
-          \'lazy':1,
-          \'on_map':{'n':['<Leader>f']},
-          \}) ", { 'do': ':LeaderfInstallCExtension' }
-
+                \'type':'git',
+                \'lazy':1,
+                \'on_map':{'n':['<Leader>f']},
+                \}) ", { 'do': ':LeaderfInstallCExtension' }
     " ranger
     "Plug 'francoiscabrol/ranger.vim'
     "Plug 'rbgrouleff/bclose.vim'            
 
     " tmux
-    call dein#add('christoomey/vim-tmux-navigator')
-    call dein#add('edkolev/tmuxline.vim')
+    call dein#add('christoomey/vim-tmux-navigator',{
+                \'type':'git',
+                \})
+    call dein#add('edkolev/tmuxline.vim',{
+                \'type':'git',
+                \})
 
     " markdown
     call dein#add('godlygeek/tabular')      " 格式化代码
     call dein#add('plasticboy/vim-markdown', {
-          \'lazy':1,
-          \'on_ft' : ['markdown'],
-          \})
+                \'type':'git',
+                \'lazy':1,
+                \'on_ft' : ['markdown'],
+                \})
     call dein#add('mzlogin/vim-markdown-toc',{
-          \'lazy':1,
-          \'on_ft' : ['markdown'],
-          \}) 
+                \'type':'git',
+                \'lazy':1,
+                \'on_ft' : ['markdown'],
+                \}) 
     call dein#add('iamcco/markdown-preview.nvim',{
-          \'lazy':1,
-          \'on_ft' : ['markdown'],
-          \}) ", { 'do': 'cd app & yarn install', 'for':['markdown']  }
+                \'type':'git',
+                \'lazy':1,
+                \'on_ft' : ['markdown'],
+                \}) ", { 'do': 'cd app & yarn install', 'for':['markdown']  }
 
     " snippets
     call dein#add('honza/vim-snippets',{
-          \'lazy':1,
-          \'on_event':['InsertEnter'],
-          \})
+                \'type':'git',
+                \'lazy':1,
+                \'on_event':['InsertEnter'],
+                \})
 
     " plantuml
     "Plug 'scrooloose/vim-slumlord'
     call dein#add('tyru/open-browser.vim',{
-          \'lazy':1,
-          \'on_ft':['plantuml'],
-          \})
+                \'type':'git',
+                \'lazy':1,
+                \'on_ft':['plantuml'],
+                \})
     call dein#add('aklt/plantuml-syntax',{ 
-          \'lazy':1,
-          \'on_ft':['plantuml'],
-          \})
+                \'type':'git',
+                \'lazy':1,
+                \'on_ft':['plantuml'],
+                \})
     "call dein#add('weirongxu/plantuml-previewer.vim',{
           "\'lazy':1,
           "\'on_ft':['plantuml'],
@@ -299,7 +354,11 @@ if dein#load_state(s:dein_path)
 if has('nvim')
 
     ", { 'do': 'make hexokinase' }  颜色值保存时显示颜色
-    call dein#add('RRethy/vim-hexokinase') 
+    call dein#add('RRethy/vim-hexokinase', {
+                \'type':'git',
+                \'lazy':1,
+                \'build': 'make hexokinase',
+                \}) 
 
     " coc补全
     "call dein#add('neoclide/coc.nvim',{
@@ -309,9 +368,10 @@ if has('nvim')
 
     "lazygit
     call dein#add('kdheepak/lazygit.nvim',{
-          \'lazy':1,
-          \'on_cmd':['LazyGit'],
-          \})
+                \'type':'git',
+                \'lazy':1,
+                \'on_cmd':['LazyGit'],
+                \})
 endif
 
     call dein#end()
@@ -696,7 +756,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+"set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList, coclist的按键映射
 " Show all diagnostics.显示所有诊断
