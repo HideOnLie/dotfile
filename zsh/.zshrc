@@ -74,7 +74,6 @@ alias ls=exa
 alias la='exa -lgha'
 alias ll='exa -lgh'
 alias l='exa -lgha'
-alias rg='ranger'
 alias lg='lazygit'
 alias vi='nvim'
 alias vim='nvim'

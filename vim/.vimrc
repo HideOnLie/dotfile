@@ -37,7 +37,7 @@ set clipboard=unnamed  " 默认粘贴到系统剪切板
 set showcmd            " 显示输入的命令
 set cursorline         " 当前行高亮
 set number             " 行号
-set relativenumber     " 相对行号
+"set relativenumber     " 相对行号
 set helplang=cn        " 中文帮助文档
 set encoding=utf-8     " utf-8编码
 set fileencoding=utf-8 " 设置当前文件编码
@@ -88,6 +88,9 @@ set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 "}}}
 
 "========================Mappings========================{{{
+
+" unmap
+
 " 重新加载配置文件
 nnoremap <leader>rc :source $MYVIMRC<CR>
 
@@ -131,7 +134,7 @@ set runtimepath+=/home/hide/.vim/dein/repos/github.com/Shougo/dein.vim
 let s:dein_path = '~/.vim/dein'
 let g:dein#types#git#default_hub_site='hub.fastgit.org'
 let g:dein#types#git#clone_depth=1
-let g:dein#install_progress_type="title"
+let g:dein#install_progress_type="tabline"
 
 if dein#load_state(s:dein_path)
     call dein#begin(s:dein_path)
@@ -156,19 +159,12 @@ if dein#load_state(s:dein_path)
     " which-key
     call dein#add('liuchengxu/vim-which-key',{
                 \'type':'git',
-                \'lzay': 1,
                 \'on_cmd':['WhichKey', 'WhichKey!'],
-                \})
-    " 滚动优化
-    call dein#add('psliwka/vim-smoothie',{
-                \'type':'git',
-                \'lzay': 1,
-                \'on_map':{'n':['<C-u>', '<C-d>', '<C-f>', '<C-b>']},
+                \'hook_post_source':"call which_key#register('<Space>', 'g:which_key_map')",
                 \})
     " 重复操作.优化
     call dein#add('tpope/vim-repeat',{
                 \'type':'git',
-                \'lzay': 1,
                 \'on_map':{'n':['.']}, 
                 \})                       
     " 加强%
@@ -178,15 +174,13 @@ if dein#load_state(s:dein_path)
                 \'on_map':{'n':['%']}, 
                 \})                   
     " 语法高亮
-    "call dein#add('sheerun/vim-polyglot')
-    call dein#add('nvim-treesitter/nvim-treesitter',{
+    call dein#add('sheerun/vim-polyglot',{
                 \'type':'git',
-                \})                
+                \})
     " 彩虹括号
-    "call dein#add('luochen1990/rainbow')
-    call dein#add('p00f/nvim-ts-rainbow',{
+    call dein#add('luochen1990/rainbow',{
                 \'type':'git',
-                \})                         
+                \})
     " vim中查看git状态
     call dein#add('airblade/vim-gitgutter',{
                 \'type':'git',
@@ -201,19 +195,10 @@ if dein#load_state(s:dein_path)
                 \'lazy':1, 
                 \'on_cmd':['TranslateW'],
                 \})
-    " 快速选择
-    call dein#add('gcmt/wildfire.vim',{
-                \'type':'git',
-                \'lazy':1, 
-                \})                            
     " 成对符号
     call dein#add('machakann/vim-sandwich',{
                 \'type':'git',
                 \'lazy':1, 
-                \})                       
-    " 多光标
-    call dein#add('mg979/vim-visual-multi',{
-                \'type':'git',
                 \})                       
     " vim状态栏
     call dein#add('vim-airline/vim-airline',{
@@ -226,32 +211,24 @@ if dein#load_state(s:dein_path)
                 \'lzay': 1,
                 \'depends': ['vim-airline'],
                 \})               
-    "call dein#add('wfxr/minimap.vim')               " 代码mini预览
-    "call dein#add('itchyny/vim-cursorword')                       " 下划线
     " 单词高亮及跳转
     call dein#add('vim-scripts/Mark--Karkat',{
                 \'type':'git',
                 \'lzay': 1,
-                \'on_map':{'n':['<leader>m'],'x':['<leader>m']},
+                \'on_map':{'nx':['<leader>m']},
+                \'hook_post_source':"call MarkUnmapKeys()",
                 \}) 
      "注释
     call dein#add('preservim/nerdcommenter',{
                 \'type':'git',
                 \'lzay': 1,
-                \'on_map':{'n':['<leader>cc','<leader>cs','<leader>cu','<leader>ca'],'x':['<leader>cs']},
+                \'on_map':{'nx':['<leader>cc','<leader>cs','<leader>cu','<leader>ca', '<leader>cm', '<leader>cA', '<leader>c$']},
                 \})
     " 书签
     call dein#add('MattesGroeger/vim-bookmarks',{
                 \'type':'git',
-                \'lzay': 1,
-                \'on_map':{'n':['mm','ma']},
                 \})
-    " 表格模式
-    call dein#add('dhruvasagar/vim-table-mode',{
-                \'type':'git',
-                \'lzay': 1,
-                \'on_map':{'n':['<leader>tm']},
-                \})
+                "\'on_map':{'n':['mm','ma']},
     " 符号对齐
     call dein#add('junegunn/vim-easy-align',{
                 \'type':'git',
@@ -264,12 +241,6 @@ if dein#load_state(s:dein_path)
                 \'lzay': 1,
                 \'on_cmd':['Vista!!'],
                 \})
-    " html5
-    call dein#add('othree/html5.vim',{
-                \'type':'git',
-                \'lzay': 1,
-                \'on_ft' : ['html'],
-                \}) 
     " js着色
     "call dein#add('pangloss/vim-javascript',{
     "      \'lazy':1,
@@ -287,8 +258,9 @@ if dein#load_state(s:dein_path)
     call dein#add('Yggdroot/LeaderF',{
                 \'type':'git',
                 \'lazy':1,
-                \'on_map':{'n':['<Leader>f']},
-                \}) ", { 'do': ':LeaderfInstallCExtension' }
+                \'on_map':{'nx':['<Leader>ff','<Leader>fb']},
+                \'hook_post_update':":LeaderfInstallCExtension",
+                \})
     " ranger
     "Plug 'francoiscabrol/ranger.vim'
     "Plug 'rbgrouleff/bclose.vim'            
@@ -305,12 +277,10 @@ if dein#load_state(s:dein_path)
     call dein#add('godlygeek/tabular')      " 格式化代码
     call dein#add('plasticboy/vim-markdown', {
                 \'type':'git',
-                \'lazy':1,
                 \'on_ft' : ['markdown'],
                 \})
     call dein#add('mzlogin/vim-markdown-toc',{
                 \'type':'git',
-                \'lazy':1,
                 \'on_ft' : ['markdown'],
                 \}) 
     call dein#add('iamcco/markdown-preview.nvim',{
@@ -328,16 +298,15 @@ if dein#load_state(s:dein_path)
 
     " plantuml
     "Plug 'scrooloose/vim-slumlord'
-    call dein#add('tyru/open-browser.vim',{
-                \'type':'git',
-                \'lazy':1,
-                \'on_ft':['plantuml'],
-                \})
-    call dein#add('aklt/plantuml-syntax',{ 
-                \'type':'git',
-                \'lazy':1,
-                \'on_ft':['plantuml'],
-                \})
+    "call dein#add('tyru/open-browser.vim',{
+    "            \'type':'git',
+    "            \'lazy':1,
+    "            \'on_ft':['plantuml'],
+    "            \})
+    "call dein#add('aklt/plantuml-syntax',{ 
+    "            \'type':'git',
+    "            \'on_ft':['plantuml'],
+    "            \})
     "call dein#add('weirongxu/plantuml-previewer.vim',{
           "\'lazy':1,
           "\'on_ft':['plantuml'],
@@ -353,18 +322,17 @@ if dein#load_state(s:dein_path)
 
 if has('nvim')
 
-    ", { 'do': 'make hexokinase' }  颜色值保存时显示颜色
+    "颜色值保存时显示颜色
     call dein#add('RRethy/vim-hexokinase', {
                 \'type':'git',
-                \'lazy':1,
                 \'build': 'make hexokinase',
                 \}) 
 
     " coc补全
-    "call dein#add('neoclide/coc.nvim',{
-          "\'lazy':1,
-          "\'on_event':['InsertEnter'],
-          "\})
+    call dein#add('neoclide/coc.nvim',{
+          \'lazy':1,
+          \'on_event':['InsertEnter'],
+          \})
 
     "lazygit
     call dein#add('kdheepak/lazygit.nvim',{
@@ -385,6 +353,14 @@ endif
 " ===
 "let g:startify_bookmarks = [ {'v': '~/.vimrc'}, {'z': '~/.zshrc'} ]
 let g:dashboard_default_executive ='leaderf'
+lua << EOF
+vim.g.dashboard_preview_command = 'cat'
+vim.g.dashboard_preview_pipeline = 'lolcat'
+vim.g.dashboard_preview_file='~/.config/nvim/neovim.cat'
+vim.g.dashboard_preview_file_height = 12
+vim.g.dashboard_preview_file_width = 80
+EOF
+
 "let g:dashboard_default_header='default'
 "let g:dashboard_default_header='garfield'
 
@@ -392,8 +368,56 @@ let g:dashboard_default_executive ='leaderf'
 " === vim-which-key
 " ===
 let g:which_key_map = {}
+let g:which_key_map['<F12>'] = "Translate"
+let g:which_key_map['#'] = "Prev Same Mark"
+let g:which_key_map['*'] = "Next Same Mark"
+let g:which_key_map['?'] = "Prev Any Mark"
+let g:which_key_map['/'] = "Next Any Mark"
+let g:which_key_map.g = "Ranger"
+let g:which_key_map.t = "Floaterm"
+let g:which_key_map.f = {
+      \'name' : "LeaderF",
+      \'f' : 'file',
+      \'b' : 'buffer',
+      \'l' : 'line',
+      \'t' : 'tag',
+      \'m' : 'mru',
+      \'h' : 'help',
+      \'c' : 'cmdhistory',
+      \'r' : 'recall',
+      \}
+let g:which_key_map.r = {
+      \'name' : 'Reload',
+      \}
+let g:which_key_map.c = {
+      \'name' : 'Code Comment',
+      \'SPC' : 'Toggles the comment state of the selected line',
+      \'c' : 'Comment current line, or text selected in visual mode',
+      \'u' : 'Uncomment',
+      \'s' : 'Sexily Comment',
+      \'a' : 'switches to the alternative comment style',
+      \'m' : 'Comment block',
+      \'A' : 'Insert Mode, at the line tail',
+      \'$' : 'Comment from current to line tail',
+      \'i' : 'Toggles the comment state of selected line individually',
+      \'n' : 'Comment current line but forces nesting',
+      \'l' : 'Comment current line and delimiters are aligned left sides',
+      \'b' : 'Comment current line and delimiters are aligned both sides',
+      \}
+let g:which_key_map.h = {
+      \'name' : 'Git gutter',
+      \'p' : 'Preview the hunk under the cursor',
+      \'s' : 'Stage the hunk under the cursor',
+      \'u' : 'Undo the hunk under the cursor',
+      \}
+let g:which_key_map.m = {
+      \'name' : 'Mark',
+      \'m' : 'MarkWord',
+      \'c' : 'MarkClear',
+      \'r' : 'MarkRegex',
+      \}
 
-autocmd! User vim-which-key call which_key#register('<Space>', "g:which_key_map")
+
 
 " ===
 " === vim-hybrid-material, 配色方案
@@ -404,7 +428,6 @@ let g:enable_bold_font = 1                      "函数与语言控件等加粗
 "let g:hybrid_transparent_background = 1         "透明背景
 " 变量的设定都得需要在colorscheme之前才能生效
 colorscheme hybrid_reverse
-"let g:airline_theme = "hybrid"
 
 " ===
 " === airline, 状态栏
@@ -414,7 +437,8 @@ let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#whitespace#enabled=0
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tagbar#enabled = 0
-let g:airline_theme='dark'
+let g:airline_theme = "hybrid"
+"let g:airline_theme='dark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
@@ -423,14 +447,6 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 " ===
 let g:vim_current_word#highlight_current_word = 0
 
-" ===
-" ===vim-interestingwords  单词高亮使用说明
-" ===
-" <leader> + k  高亮/取消高亮
-" <leader> + K  取消所有高亮
-" n,下一个高亮单词
-" N,上一个高亮单词
-"let g:interestingWordsGUIColors = ['#8CCBEA', '#A4E57E', '#FFDB72', '#FF7272', '#FFB3FF', '#9999FF']
 
 " ===
 " ===NERDTree 目录树
@@ -459,27 +475,6 @@ let g:vim_current_word#highlight_current_word = 0
 " q 退出
 " p 预览
 " s 排序
-
-" ===
-" ===nerdcommenter 注释
-" ===
-" 数字+<leader>+快捷键
-" cc,进行注释选中的行
-" cu,进行取消注释
-" ca,切换注释的方式
-" cs,以”性感”的方式注释
-" cm,块注释 cA,在当前行尾添加注释符，并进入Insert模式
-" c$,从光标开始到行尾注释
-let g:which_key_map.c = {
-      \'name' : '+comment_option',
-      \'c' : 'Comment current line or text selected in visual mode',
-      \'u' : 'Uncomment',
-      \'s' : 'Sexily Comment',
-      \'a' : 'switches to the alternative comment style',
-      \'m' : 'Comment block',
-      \'A' : 'Insert Mode, at the line tail',
-      \'$' : 'Comment from current to line tail',
-      \}
 
 
 " ===
@@ -516,12 +511,6 @@ let g:which_key_map.c = {
 " 折叠/打开折叠：GitGutterFold
 set updatetime=100                  "显示的延迟，默认为4000即4s，这里设置为100ms，这个值同时控制写入swap文件的时间
 let g:gitgutter_max_signs = -1      "default value,超过多少改动将不显示改动符号，-1为不设置上限
-let g:which_key_map.h = {
-      \'name' : '+Action',
-      \'p' : 'Preview the hunk under the cursor',
-      \'s' : 'Stage the hunk under the cursor',
-      \'u' : 'Undo the hunk under the cursor',
-      \}
 
 " ===
 " ===vim-easy-align
@@ -576,9 +565,11 @@ nmap ga <Plug>(EasyAlign)
 " ===
 " === rainbow
 " ===
+
+" 激活rainbow，也可:RainbowToggle
 let g:rainbow_active = 1
 let g:rainbow_conf = {
-\	'guifgs': ['Silver', 'IndianRed', 'darkcyan', 'gray' , 'RoyalBlue3', 'mediumpurple'],
+\	'guifgs': ['Silver', 'IndianRed', 'darkcyan', 'gray' , '#9999FF', '#65934a', '#8CCBEA'],
 \	'ctermfgs': ['gray', 'brown', 'lightblue', 'lightyellow', 'darkgreen', 'lightmagenta'],
 \	'operators': '_,_',
 \	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
@@ -637,17 +628,12 @@ let g:rainbow_conf = {
 "<Leader>is switches to the alternate file of file under cursor (e.g. on  <foo.h> switches to foo.cpp)
 "<Leader>ihn cycles through matches
 
-" ===
-" === lazygit.vim
-" ===
-" setup mapping to call :LazyGit
-"nnoremap <silent> <leader>lg :LazyGit<CR>
-
 
 
 " ===
 " === coc.nvim
 " ===
+function Comment()
 " TextEdit might fail if hidden is not set.
 if has('nvim')
 set hidden
@@ -777,6 +763,8 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 endif
 
+endfunction
+
 " ===
 " === coc-snippets
 " ===
@@ -831,11 +819,6 @@ let g:Hexokinase_highlighters = ['foreground']
 let g:vmt_cycle_list_item_markers = 1           "改变目录级别显示
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
-
-" ===
-" === vim-table-mode
-" ===
-" <Leader>tm :打开table模式
 
 
 " ===
@@ -999,27 +982,40 @@ nmap mx <Plug>BookmarkClearAll
 " ===
 " === LeaderF
 " ===
+" 智能大小写，大写字母敏感匹配，小写字母不敏感匹配
+" don't show the help in normal mode
+let g:Lf_HideHelp = 1
 let g:Lf_UseCache = 0
+let g:Lf_UseVersionControlTool = 0
+let g:Lf_IgnoreCurrentBufferName = 1
+
 let g:Lf_WindowPosition = 'popup'
 let g:Lf_PreviewInPopup = 1
+let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
+
+let g:Lf_ShortcutF = "<leader>ff"
+let g:Lf_ShortcutB = "<leader>fb"
+noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+noremap <leader>fh :<C-U><C-R>=printf("Leaderf help %s", "")<CR><CR>
+noremap <leader>fc :<C-U><C-R>=printf("Leaderf cmdHistory%s", "")<CR><CR>
+noremap <leader>fr :Leaderf --recall<CR>
 
 "}}}
 
-"disable = { "c", "rust" },  -- list of language that will be disabled
-"require'nvim-treesitter.configs'.setup {
-  "ensure_installed = "c",
-  "highlight = {
-    "enable = true,
-  "},
-"}
 
-lua <<EOF
-  require'nvim-treesitter.configs'.setup {
-    ensure_installed = "c",
-    highlight = { enable = true },
-    rainbow = { enable = true },
-  }
-EOF
+"lua <<EOF
+"  require'nvim-treesitter.configs'.setup {
+"    ensure_installed = {
+"        "c",
+"    },
+"    rainbow = {
+"        enable = true,
+"        extended_mode = true,
+"    },
+"  }
+"EOF
 
 if has("cscope")
    set csprg=/usr/bin/cscope
@@ -1055,6 +1051,18 @@ set ttimeoutlen=100
 "退出插入模式
 autocmd InsertLeave * call Fcitx2en()
 "##### auto fcitx end #####
+
+function! MarkUnmapKeys()
+  unmap <leader>r
+  unmap <leader>n
+  unmap <leader>m
+
+  "nnoremap <leader>mm :execute "normal \<Plug>MarkRegex"<CR>
+  nnoremap <leader>mm :call mark#MarkCurrentWord()<CR>
+  nnoremap <leader>mr :execute "normal \<Plug>MarkRegex"<CR>
+  nnoremap <leader>mc :MarkClear<CR>
+endfunction
+
 "}}}
 
 "========================Services========================{{{
@@ -1065,7 +1073,7 @@ if has('vim_starting')
   syntax enable                   "开启语法检查
 endif
 
-"filetype plugin on              "文件类型检查
+filetype plugin on              "文件类型检查
 highlight clear SignColumn      "让signcolumn与行号一个颜色
 "}}}
 
@@ -1083,4 +1091,5 @@ augroup filetype_html
 "syntax sync minlines=10000
 "syntax sync fromstart
 augroup END
+
 "}}}
