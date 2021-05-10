@@ -171,7 +171,6 @@ if dein#load_state(s:dein_path)
     " 加强%
     call dein#add('andymass/vim-matchup',{ 
                 \'type':'git',
-                \'lzay': 1,
                 \'on_map':{'n':['%']}, 
                 \})                   
     " 语法高亮
