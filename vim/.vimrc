@@ -325,6 +325,7 @@ if has('nvim')
     "颜色值保存时显示颜色
     call dein#add('RRethy/vim-hexokinase', {
                 \'type':'git',
+                \'hook_post_update':'make hexokinase',
                 \'build': 'make hexokinase',
                 \}) 
 
