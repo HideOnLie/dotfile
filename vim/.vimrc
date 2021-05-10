@@ -126,10 +126,11 @@ nnoremap <leader>g :FloatermNew ranger<CR>
 "}}}
 
 
-set runtimepath+=/home/hide/.vim/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
 
 let s:dein_path = '~/.vim/dein'
-let g:dein#types#git#default_hub_site='hub.fastgit.org'
+"let g:dein#types#git#default_hub_site='hub.fastgit.org'
+let g:dein#types#git#default_hub_site='github.com.cnpmjs.org'
 let g:dein#types#git#clone_depth=1
 let g:dein#install_progress_type="title"
 
@@ -137,7 +138,7 @@ if dein#load_state(s:dein_path)
     call dein#begin(s:dein_path)
 
   " Let dein manage dein
-    call dein#add('/home/hide/.vim/dein/repos/github.com/Shougo/dein.vim',{
+    call dein#add('~/.vim/dein/repos/github.com/Shougo/dein.vim',{
                 \'type':'git'
                 \})
 
@@ -168,7 +169,6 @@ if dein#load_state(s:dein_path)
     " 重复操作.优化
     call dein#add('tpope/vim-repeat',{
                 \'type':'git',
-                \'lzay': 1,
                 \'on_map':{'n':['.']}, 
                 \})                       
     " 加强%
@@ -226,7 +226,6 @@ if dein#load_state(s:dein_path)
                 \'lzay': 1,
                 \'depends': ['vim-airline'],
                 \})               
-    "call dein#add('wfxr/minimap.vim')               " 代码mini预览
     "call dein#add('itchyny/vim-cursorword')                       " 下划线
     " 单词高亮及跳转
     call dein#add('vim-scripts/Mark--Karkat',{
@@ -265,11 +264,10 @@ if dein#load_state(s:dein_path)
                 \'on_cmd':['Vista!!'],
                 \})
     " html5
-    call dein#add('othree/html5.vim',{
-                \'type':'git',
-                \'lzay': 1,
-                \'on_ft' : ['html'],
-                \}) 
+    "call dein#add('othree/html5.vim',{
+    "            \'type':'git',
+    "            \'on_ft' : ['html'],
+    "            \}) 
     " js着色
     "call dein#add('pangloss/vim-javascript',{
     "      \'lazy':1,
@@ -305,12 +303,10 @@ if dein#load_state(s:dein_path)
     call dein#add('godlygeek/tabular')      " 格式化代码
     call dein#add('plasticboy/vim-markdown', {
                 \'type':'git',
-                \'lazy':1,
                 \'on_ft' : ['markdown'],
                 \})
     call dein#add('mzlogin/vim-markdown-toc',{
                 \'type':'git',
-                \'lazy':1,
                 \'on_ft' : ['markdown'],
                 \}) 
     call dein#add('iamcco/markdown-preview.nvim',{
@@ -335,7 +331,6 @@ if dein#load_state(s:dein_path)
                 \})
     call dein#add('aklt/plantuml-syntax',{ 
                 \'type':'git',
-                \'lazy':1,
                 \'on_ft':['plantuml'],
                 \})
     "call dein#add('weirongxu/plantuml-previewer.vim',{
