@@ -135,7 +135,7 @@ let s:dein_path = '~/.vim/dein'
 "let g:dein#types#git#default_hub_site='hub.fastgit.org'
 let g:dein#types#git#default_hub_site='github.com.cnpmjs.org'
 let g:dein#types#git#clone_depth=1
-let g:dein#install_progress_type="tabline"
+let g:dein#install_progress_type="echo"
 
 if dein#load_state(s:dein_path)
     call dein#begin(s:dein_path)
@@ -190,16 +190,22 @@ if dein#load_state(s:dein_path)
                 \'type':'git',
                 \})                     
     " 翻译
-    call dein#add('voldikss/vim-translator',{
-                \'type':'git',
-                \'lazy':1, 
-                \'on_cmd':['TranslateW'],
-                \})
+    "call dein#add('voldikss/vim-translator',{
+    "            \'type':'git',
+    "            \'lazy':1, 
+    "            \'on_cmd':['TranslateW'],
+    "            \})
     " 成对符号
     call dein#add('machakann/vim-sandwich',{
                 \'type':'git',
                 \'lazy':1, 
                 \})                       
+    call dein#add('kyazdani42/nvim-web-devicons',{
+                \'type':'git',
+                \})                      
+    call dein#add('akinsho/nvim-bufferline.lua',{
+                \'type':'git',
+                \})                      
     " vim状态栏
     call dein#add('vim-airline/vim-airline',{
                 \'type':'git',
@@ -427,6 +433,7 @@ let g:which_key_map.o = {
       \'r' : 'Resume latest coc list',
       \'n' : 'next item',
       \'p' : 'previous item',
+      \'t' : 'translate',
       \}
 
 
@@ -445,14 +452,13 @@ colorscheme hybrid_reverse
 " === airline, 状态栏
 " ===
 set laststatus=2
-let g:airline#extensions#tabline#enabled=1
+"let g:airline#extensions#tabline#enabled=1
+"let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#whitespace#enabled=0
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tagbar#enabled = 0
 let g:airline_theme = "hybrid"
 "let g:airline_theme='dark'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " ===
 " ===vim_current_word
@@ -692,6 +698,13 @@ nnoremap <silent><nowait> <leader>or  :<C-u>CocListResume<CR>
 nnoremap <silent><nowait> <leader>on  :<C-u>CocNext<CR>
 " Do default action for previous item.
 nnoremap <silent><nowait> <leader>op :<C-u>CocPrev<CR>
+
+" === 
+" === coc-translator
+" ===
+" <c-w>p 进入popup窗口
+nmap <Leader>ot <Plug>(coc-translator-p)
+vmap <Leader>ot <Plug>(coc-translator-pv)
 
 endif
 
@@ -936,6 +949,8 @@ noremap <leader>fr :Leaderf --recall<CR>
 "}}}
 
 
+set termguicolors
+lua require'bufferline'.setup{}
 "lua <<EOF
 "  require'nvim-treesitter.configs'.setup {
 "    ensure_installed = {
@@ -946,6 +961,7 @@ noremap <leader>fr :Leaderf --recall<CR>
 "        extended_mode = true,
 "    },
 "  }
+"
 "EOF
 
 if has("cscope")
