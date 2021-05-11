@@ -353,9 +353,10 @@ endif
 " ===
 "let g:startify_bookmarks = [ {'v': '~/.vimrc'}, {'z': '~/.zshrc'} ]
 let g:dashboard_default_executive ='leaderf'
+
+"vim.g.dashboard_preview_pipeline = 'lolcat'
 lua << EOF
 vim.g.dashboard_preview_command = 'cat'
-vim.g.dashboard_preview_pipeline = 'lolcat'
 vim.g.dashboard_preview_file='~/.config/nvim/neovim.cat'
 vim.g.dashboard_preview_file_height = 12
 vim.g.dashboard_preview_file_width = 80
